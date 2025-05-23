@@ -1,9 +1,6 @@
 package drivermonitor.services;
-
 import drivermonitor.models.Request;
-
 import java.util.List;
-
 public interface RequestService {
     Request createRequest(Request request);
     void deleteRequest(Integer id);

@@ -4,34 +4,27 @@ import drivermonitor.models.Driver;
 import drivermonitor.repositories.DriverRepository;
 import drivermonitor.services.DriverService;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
-
 @Service
 @EnableCaching
 public class DriverServiceImpl implements DriverService {
     private final DriverRepository driverRepository;
-
     public DriverServiceImpl(DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
     }
-
     @Override
     @CacheEvict(value = "drivers", allEntries = true)
     public Driver saveDriver(Driver driver) {
         return driverRepository.save(driver);
     }
-
     @Override
     @Cacheable("drivers")
     public Optional<Driver> getDriverById(Integer id) {
         return driverRepository.findById(id);
     }
-
     @Override
     @CacheEvict(value = "drivers", allEntries = true)
     public void updateCompletionStatus(Integer id, Boolean isCompleted) {
@@ -40,7 +33,6 @@ public class DriverServiceImpl implements DriverService {
             driverRepository.save(driver);
         });
     }
-
     @Override
     @CacheEvict(value = "drivers", allEntries = true)
     public void updateQuantity(Integer id, Integer quantity) {
@@ -49,7 +41,6 @@ public class DriverServiceImpl implements DriverService {
             driverRepository.save(driver);
         });
     }
-
     @Override
     @CacheEvict(value = "drivers", allEntries = true)
     public void updateStatus(Integer id, String status) {

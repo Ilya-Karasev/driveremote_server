@@ -1,5 +1,4 @@
 package drivermonitor;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -12,23 +11,18 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.serializer.*;
-
 import java.time.Duration;
-
 @Configuration
 public class RedisConfig {
     @Value("${redis.host}")
     private String redisHost;
-
     @Value("${redis.port}")
     private int redisPort;
-
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(redisHost, redisPort);
         return new LettuceConnectionFactory(configuration);
     }
-
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
@@ -37,7 +31,6 @@ public class RedisConfig {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
-
     @Bean
     public RedisCacheManager cacheManager(ObjectMapper objectMapper) {
         RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
@@ -54,7 +47,6 @@ public class RedisConfig {
                 .withCacheConfiguration("managers", cacheConfig)
                 .build();
     }
-
     private RedisCacheConfiguration myDefaultCacheConfig(Duration duration) {
         return RedisCacheConfiguration
                 .defaultCacheConfig()

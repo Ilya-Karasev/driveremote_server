@@ -1,9 +1,6 @@
 package drivermonitor.services;
-
 import drivermonitor.models.Driver;
-
 import java.util.Optional;
-
 public interface DriverService {
     Driver saveDriver(Driver driver);
     Optional<Driver> getDriverById(Integer id);

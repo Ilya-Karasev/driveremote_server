@@ -1,7 +1,5 @@
 package drivermonitor.models;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,7 +21,6 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-
     public User() {}
     public User(String surName, String firstName, String fatherName, int age, Post post, String email, String password) {
         this.surName = surName;
@@ -34,7 +31,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
     public String getSurName() {
         return surName;
     }
