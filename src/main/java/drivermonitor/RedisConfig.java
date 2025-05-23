@@ -37,12 +37,13 @@ public class RedisConfig {
                 .entryTtl(Duration.ofMinutes(10))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(
                         new GenericJackson2JsonRedisSerializer(objectMapper)));
-
         return RedisCacheManager.builder(redisConnectionFactory())
                 .cacheDefaults(cacheConfig)
                 .withCacheConfiguration("users", cacheConfig)
                 .withCacheConfiguration("results", cacheConfig)
                 .withCacheConfiguration("requests", cacheConfig)
+                .withCacheConfiguration("requestsForSender", cacheConfig)
+                .withCacheConfiguration("requestsForReceiver", cacheConfig)
                 .withCacheConfiguration("drivers", cacheConfig)
                 .withCacheConfiguration("managers", cacheConfig)
                 .build();
