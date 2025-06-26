@@ -15,7 +15,7 @@ public class ResultsServiceImpl implements ResultsService {
         this.resultsRepository = resultsRepository;
     }
     @Override
-    @CacheEvict(value = {"results"}, allEntries = true)
+    @CacheEvict(value = {"results", "resultsByUserId", "lastResultsUserId"}, allEntries = true)
     public Results saveResult(Results result) {
         return resultsRepository.save(result);
     }
@@ -26,12 +26,12 @@ public class ResultsServiceImpl implements ResultsService {
         return resultsRepository.findAll();
     }
     @Override
-    @Cacheable(value = "results")
+    @Cacheable(value = "resultsByUserId")
     public List<Results> getResultsByUserId(Integer userId) {
         return resultsRepository.findByUser_IdOrderByTestDateDesc(userId);
     }
     @Override
-    @Cacheable(value = "results")
+    @Cacheable(value = "lastResultsUserId")
     public Results getLastResultByUserId(Integer userId) {
         return resultsRepository.findFirstByUser_IdOrderByTestDateDesc(userId);
     }

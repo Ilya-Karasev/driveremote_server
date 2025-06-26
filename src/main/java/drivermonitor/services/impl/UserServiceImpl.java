@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
     @Override
-    @CacheEvict(value = "users", allEntries = true)
+    @CacheEvict(value = {"users", "userById", "usersById"}, allEntries = true)
     public User createUser(User user) {
         return userRepository.save(user);
     }
@@ -37,12 +37,12 @@ public class UserServiceImpl implements UserService {
         return user;
     }
     @Override
-    @Cacheable(value = "users")
+    @Cacheable(value = "userById")
     public Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
     @Override
-    @Cacheable(value = "users")
+    @Cacheable(value = "usersById")
     public List<User> getUsersByIds(List<Integer> ids) {
         return userRepository.findByIdIn(ids);
     }
